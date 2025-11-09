@@ -26,12 +26,42 @@ async function create() {
         ]
     })
 
+
     /**
      * Solo crea un usuario y retorna
      */
     const user = await db.user.create({
-        data: { name: "test", email: "" }
+        data: { name: "test", email: "test@gmail.com" }
     })
+    //? RELACIONES
+    //? Creacion de un post con un usuario
+    const post = await db.post.create({
+        data: {
+            title: "Publicacion 1",
+            content: "El primer post",
+            // authorId: user.id,
+            author: {
+                connect: {
+                    id: user.id
+                }
+            }
+        }
+    })
+
+    const userPost = await db.user.create({
+        data: {
+            name: "donna",
+            email: "donna@gmail.com",
+            posts: {
+                create: {
+                    title: "Mi segunda publicacion",
+                    content: "Prisma doc"
+                }
+            }
+        }
+    })
+
+    console.log(user)
 
 }
 

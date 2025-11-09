@@ -13,7 +13,7 @@ async function find() {
             id: 'desc'
         }
     })
-  
+
     const usersMany3 = await db.user.findMany({
         where: {
             email: {
@@ -39,7 +39,18 @@ async function find() {
         }
     })
 
-    console.log(usersMany3);
+
+    //?RELACIONES
+    //* Incluir los post en la consulta
+    const userPost = await db.user.findMany({
+        include: {
+            posts: true
+        }
+    })
+
+    console.log(userPost.forEach(user=>{
+        
+    }));
 }
 
 
